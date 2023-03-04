@@ -1,0 +1,138 @@
+/* Root */
+a {
+  text-decoration: none;
+}
+
+/* Jumbotron */
+.jumbotron {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: 500px;
+}
+
+.jumbotron img {
+  width: 100%;
+  height: 100%;
+  opacity: 70%;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  height: 70px;
+  justify-content: space-between;
+}
+
+.navbar-title a {
+  font-size: 35px;
+  font-weight: bolder;
+  font-style: italic;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #fffffe;
+  margin-left: 20px;
+}
+
+.navbar-search {
+  width: 400px;
+  display: flex;
+  border-radius: 20px;
+  height: 50px;
+  background-color: #fffffe;
+}
+
+.navbar-search input {
+  border-radius: 20px 0px 0px 20px;
+  padding: 5px;
+  width: 100%;
+}
+
+.navbar-search-btn {
+  padding: 10px;
+  border-radius: 0px 20px 20px 0px;
+}
+
+/* Navbar extra */
+.navbar-extras {
+  display: flex;
+  height: 35px;
+}
+
+.navbar-extras a {
+  color: #fffffe;
+  display: inline-block;
+  margin-top: 10px;
+  width: 35px;
+  margin-left: 10px;
+}
+
+/* Section title */
+.section-title {
+  position: absolute;
+  top: 150px;
+  left: 20px;
+}
+
+.section-title h1 {
+  font-size: 40px;
+  font-weight: bolder;
+  color: #fffffe;
+}
+
+.section-title h2 {
+  color: #fffffe;
+  font-size: 20px;
+}
+
+.section-title button {
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+}
+
+.section-1 {
+  width: 100%;
+  height: 300px;
+  border: 2px solid red;
+}
+
+.section-1 h1 {
+  font-size: 20px;
+}
+
+@media (min-width: 650px) {
+}
+
+@media (min-width: 768px) {
+  .navbar-title {
+    font-size: 10px;
+    margin-left: 40px;
+  }
+
+  .navbar-extras {
+    margin-right: 50px;
+  }
+
+  .section-title {
+    top: 150px;
+    left: 90px;
+  }
+
+  .section-title h1 {
+    font-size: 70px;
+  }
+
+  .section-1 {
+    display: flex;
+  }
+
+  .section-1 h1 {
+    font-size: 50px;
+  }
+}
