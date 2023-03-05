@@ -1,56 +1,76 @@
 import React from "react";
 import "./Home.css";
-import FeatherIcon from "feather-icons-react/build/FeatherIcon";
-import Jumbotron from "../../assets/Jumbotron.jpg";
-import Section1 from "../../assets/Section1.jpg";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import Extras1 from "../../assets/Extras1.jpg";
+import Extras2 from "../../assets/Extras2.jpg";
+import Extras3 from "../../assets/Extras3.jpg";
+
+Aos.init();
 
 const Home = () => {
   return (
     <>
-      {/* Jumbotron */}
-      <div className="jumbotron">
-        <img src={Jumbotron} alt="" />
+      <nav className="navbar">
+        <a className="navbar-logo" href="#">
+          D`<span>Movie</span>
+        </a>
+        <a className="navbar-nav" href="">
+          Sign in
+        </a>
+      </nav>
 
-        {/* Navbar */}
-        <div className="navbar">
-          <div className="navbar-title">
-            <a href="#">
-              <span>D` </span>
-              <span>Movie</span>
-            </a>
+      {/* Section Hero */}
+      <section className="hero" id="home">
+        <main className="content">
+          <h1>
+            Most popular<span>Website</span>
+          </h1>
+          <h2>for search movies</h2>
+          <a className="cta" href="#">
+            Get started
+          </a>
+        </main>
+      </section>
+
+      {/* Section Extras*/}
+      <section className="extras" id="section-extras">
+        <div className="extras-1" data-aos="fade-right">
+          <div className="extras-1-text">
+            <h1>Enjoy in everywhere</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cum
+              minima perspiciatis? Incidunt, officiis illo!
+            </p>
           </div>
-          {/* <div className="navbar-search">
-            <input id="search-bar" type="text" />
-            <button className="navbar-search-btn">
-              <FeatherIcon icon="search" />
-            </button>
-          </div> */}
-          <div className="navbar-extras">
-            <a href="">
-              <FeatherIcon icon="user" />
-            </a>
-            <a href="">
-              <FeatherIcon icon="settings" />
-            </a>
+          <div className="extras-1-img">
+            <img src={Extras1} alt="Extras 1" />
           </div>
         </div>
-
-        {/* Section title */}
-        <div className="section-title">
-          <h1>Most Popular</h1>
-          <h2>Web for Search Film</h2>
-          <button>Get Started</button>
+        <div className="extras-2" data-aos="fade-left">
+          <div className="extras-2-text">
+            <h1>Easy to acces</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div className="extras-2-img">
+            <img src={Extras2} alt="Extras 2" />
+          </div>
         </div>
-      </div>
-
-      {/* Section 1 */}
-      <div className="section-1">
-        <h1>Enjoy play in everywhere</h1>
-        <div className="img-section-1-wrapper">
-          <img src={Section1} alt="" />
+        <div className="extras-3" data-aos="fade-right">
+          <div className="extras-3-text">
+            <h1>Unlimited film</h1>
+            <p>
+              Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Optio, facere.
+            </p>
+          </div>
+          <div className="extras-3-img">
+            <img src={Extras3} alt="Extras 3" />
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };
+
 export default Home;
