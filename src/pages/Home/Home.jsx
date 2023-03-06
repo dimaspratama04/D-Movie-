@@ -3,11 +3,13 @@ import "./Home.css";
 
 const Home = () => {
   const [posters, setPosters] = useState([]);
-
+  const [movieDetail, setMovieDetail] = useState([]);
   useEffect(() => {
     try {
       const getDatas = async () => {
-        const response = await fetch("http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers");
+        const response = await fetch(
+          "http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers"
+        );
         const datas = await response.json();
         let results = datas.Search.slice(0, 4);
         setPosters(results);
@@ -24,6 +26,37 @@ const Home = () => {
     navbar.classList.toggle("active");
   };
 
+  const movieDetails = async (imdbid) => {
+    try {
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`
+      );
+      const datas = await response.json();
+      setMovieDetail(datas);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // Show details
+  const showDetails = (e) => {
+    let imdbid = e.target.dataset.imdbid;
+    movieDetails(imdbid);
+
+    const modal = document.getElementById("myModal");
+    const span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  };
+
   return (
     <>
       {/* Navbar */}
@@ -37,12 +70,17 @@ const Home = () => {
           <a href="#">Profile</a>
         </div>
         <a className="hamburger-menu" href="#" onClick={showNav}>
-          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="46"
+            height="46"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
         </a>
       </nav>
-
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
@@ -50,7 +88,6 @@ const Home = () => {
           <button type="submit">Search</button>
         </form>
       </section>
-
       {/* Section */}
       <div className="container">
         <h1 className="popular-title">Popular</h1>
@@ -58,9 +95,19 @@ const Home = () => {
           {posters.map((poster, index) => {
             return (
               <>
-                <div className="poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"}>
+                <div
+                  className="poster-card"
+                  data-aos="flip-left"
+                  data-aos-duration="1000"
+                  data-aos-delay={index + "00"}
+                  onClick={showDetails}
+                >
                   <div className="poster-img">
-                    <img src={poster.Poster} alt="Poster" />
+                    <img
+                      src={poster.Poster}
+                      alt="Poster"
+                      data-imdbid={poster.imdbID}
+                    />
                   </div>
                   <h1 className="poster-title">{poster.Title}</h1>
                 </div>
@@ -69,6 +116,46 @@ const Home = () => {
           })}
           {}
         </section>
+      </div>
+      {/* Modal */}
+      <div className="container">
+        <div id="myModal" class="modal">
+          <div class="modal-body">
+            <span class="close">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+              </svg>
+            </span>
+            <div className="modal-content">
+              <img src={movieDetail.Poster} alt="" />
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>
+                    <h1>
+                      {movieDetail.Title} ({movieDetail.Year})
+                    </h1>
+                  </strong>
+                </li>
+                <li class="list-group-item">
+                  <strong>Director : </strong>
+                  {movieDetail.Director}
+                </li>
+                <li class="list-group-item">
+                  <strong>Actors : </strong>
+                  {movieDetail.Actors}
+                </li>
+                <li class="list-group-item">
+                  <strong>Plot : </strong>
+                  {movieDetail.Plot}
+                </li>
+                <li class="list-group-item">
+                  <strong>Rate : </strong>
+                  {movieDetail.imdbRating}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
