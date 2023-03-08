@@ -1,15 +1,16 @@
+import { Search } from "feather-icons-react/build/IconComponents";
 import { useEffect, useState } from "react";
 import "./Home.css";
 
 const Home = () => {
   const [posters, setPosters] = useState([]);
   const [movieDetail, setMovieDetail] = useState([]);
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     try {
       const getDatas = async () => {
-        const response = await fetch(
-          "http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers"
-        );
+        const response = await fetch("http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers");
         const datas = await response.json();
         let results = datas.Search.slice(0, 4);
         setPosters(results);
@@ -26,21 +27,21 @@ const Home = () => {
     navbar.classList.toggle("active");
   };
 
-  const movieDetails = async (imdbid) => {
+  // Get movie details
+  const getMovieDetails = async (imdbid) => {
     try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`
-      );
+      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`);
       const datas = await response.json();
       setMovieDetail(datas);
     } catch (e) {
       console.log(e);
     }
   };
+
   // Show details
   const showDetails = (e) => {
     let imdbid = e.target.dataset.imdbid;
-    movieDetails(imdbid);
+    getMovieDetails(imdbid);
 
     const modal = document.getElementById("myModal");
     const span = document.getElementsByClassName("close")[0];
@@ -57,57 +58,58 @@ const Home = () => {
     };
   };
 
+  // Search Movie
+  const searchMovie = () => {
+    const value = document.getElementById("search-value").value;
+    try {
+      const getSearchMovie = async () => {
+        const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
+        const datas = await response.json();
+        setMovies(datas.Search);
+      };
+      getSearchMovie();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       {/* Navbar */}
       <nav className="navbar-home">
-        <a className="navbar-home-logo" href="#">
+        <a className="navbar-home-logo" href="/home">
           D`<span>Movie</span>
         </a>
         <div className="navbar-nav-home">
-          <a href="#">Home</a>
-          <a href="#">Popular</a>
-          <a href="#">Profile</a>
+          <a href="/home">Home</a>
+          <a href="#popular">Popular</a>
+          <a href="#">Now Showing</a>
         </div>
         <a className="hamburger-menu" href="#" onClick={showNav}>
-          <svg
-            width="46"
-            height="46"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
         </a>
       </nav>
+
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
-          <input type="search" placeholder="Search..." />
-          <button type="submit">Search</button>
+          <input id="search-value" type="search" placeholder="Search..." />
+          <button type="button" onClick={searchMovie}></button>
         </form>
       </section>
+
       {/* Section */}
-      <div className="container">
+      <div id="popular" className="container">
         <h1 className="popular-title">Popular</h1>
         <section className="popular">
           {posters.map((poster, index) => {
             return (
               <>
-                <div
-                  className="poster-card"
-                  data-aos="flip-left"
-                  data-aos-duration="1000"
-                  data-aos-delay={index + "00"}
-                  onClick={showDetails}
-                >
+                <div className="poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} onClick={showDetails}>
                   <div className="poster-img">
-                    <img
-                      src={poster.Poster}
-                      alt="Poster"
-                      data-imdbid={poster.imdbID}
-                    />
+                    <img src={poster.Poster} alt="Poster" data-imdbid={poster.imdbID} />
                   </div>
                   <h1 className="poster-title">{poster.Title}</h1>
                 </div>
@@ -117,6 +119,26 @@ const Home = () => {
           {}
         </section>
       </div>
+
+      {/* Now Showing Section */}
+      <div id="search-results">
+        <h1 className="search-title">Search Result</h1>;
+        <section className="results">
+          {movies.map((movie, index) => {
+            return (
+              <>
+                <div className="results-poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} onClick={showDetails}>
+                  <div className="results-poster-img">
+                    <img src={movie.Poster} alt="Poster" data-imdbid={movie.imdbID} />
+                  </div>
+                  <h1 className="results-poster-title">{movie.Title}</h1>
+                </div>
+              </>
+            );
+          })}
+        </section>
+      </div>
+
       {/* Modal */}
       <div className="container">
         <div id="myModal" class="modal">
