@@ -1,4 +1,3 @@
-import { Search } from "feather-icons-react/build/IconComponents";
 import { useEffect, useState } from "react";
 import "./Home.css";
 
@@ -6,6 +5,8 @@ const Home = () => {
   const [posters, setPosters] = useState([]);
   const [movieDetail, setMovieDetail] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
+  const [response, setResponse] = useState([]);
 
   useEffect(() => {
     try {
@@ -63,9 +64,13 @@ const Home = () => {
     const value = document.getElementById("search-value").value;
     try {
       const getSearchMovie = async () => {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
-        const datas = await response.json();
-        setMovies(datas.Search);
+        const res = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
+        const datas = await res.json();
+        let results = datas.Search;
+        let responseTxt = datas.Response;
+        setMovies(results);
+        setResponse(responseTxt);
+        window.location.href = "#search-results";
       };
       getSearchMovie();
     } catch (e) {
@@ -81,7 +86,7 @@ const Home = () => {
           D`<span>Movie</span>
         </a>
         <div className="navbar-nav-home">
-          <a href="/home">Home</a>
+          <a href="/">Home</a>
           <a href="#popular">Popular</a>
           <a href="#">Now Showing</a>
         </div>
@@ -95,7 +100,7 @@ const Home = () => {
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
-          <input id="search-value" type="search" placeholder="Search..." />
+          <input id="search-value" type="search" placeholder="Search movies..." />
           <button type="button" onClick={searchMovie}></button>
         </form>
       </section>
@@ -122,20 +127,24 @@ const Home = () => {
 
       {/* Now Showing Section */}
       <div id="search-results">
-        <h1 className="search-title">Search Result</h1>;
+        <h1 className="search-title">Search Result</h1>
         <section className="results">
-          {movies.map((movie, index) => {
-            return (
-              <>
-                <div className="results-poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} onClick={showDetails}>
-                  <div className="results-poster-img">
-                    <img src={movie.Poster} alt="Poster" data-imdbid={movie.imdbID} />
+          {response === "True" && isSearch === true ? (
+            movies.map((movie, index) => {
+              return (
+                <>
+                  <div className="results-poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} onClick={showDetails}>
+                    <div className="results-poster-img">
+                      <img src={movie.Poster} alt="Poster" data-imdbid={movie.imdbID} />
+                    </div>
+                    <h1 className="results-poster-title">{movie.Title}</h1>
                   </div>
-                  <h1 className="results-poster-title">{movie.Title}</h1>
-                </div>
-              </>
-            );
-          })}
+                </>
+              );
+            })
+          ) : (
+            <h1 className="false-res">Movie not found !</h1>
+          )}
         </section>
       </div>
 
