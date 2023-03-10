@@ -177,6 +177,70 @@ button[type="submit"]:hover {
   font-size: 1rem;
 }
 
+/* Footer */
+.footer {
+  width: 100%;
+  background-color: slategray;
+}
+.footer-main {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 15rem;
+}
+.footer h1 {
+  font-size: 4rem;
+}
+.footer-socmed-title {
+  text-align: center;
+}
+.footer-socmed-list {
+  text-align: ce;
+  display: flex;
+}
+.footer-socmed-list li {
+  display: inline-block;
+  position: relative;
+  margin: 0 1rem;
+  color: white;
+}
+.footer-socmed-list li a {
+  display: inline-block;
+  color: white;
+}
+.footer-socmed-list li::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.footer-socmed-list li:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.footer-copyright {
+  width: 90%;
+  height: 2rem;
+  margin: 0 auto;
+  padding: 5px;
+}
+.footer-copyright div {
+  margin: 0 auto;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  color: black;
+}
+.footer-copyright p {
+  text-align: center;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
   /* Navbar */

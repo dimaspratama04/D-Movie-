@@ -12,9 +12,7 @@ const Home = () => {
   useEffect(() => {
     try {
       const getDatas = async () => {
-        const response = await fetch(
-          "http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers"
-        );
+        const response = await fetch("http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers");
         const datas = await response.json();
         let results = datas.Search.slice(0, 4);
         setPosters(results);
@@ -34,9 +32,7 @@ const Home = () => {
   // Get movie details
   const getMovieDetails = async (imdbid) => {
     try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`
-      );
+      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`);
       const datas = await response.json();
       setMovieDetail(datas);
     } catch (e) {
@@ -71,9 +67,7 @@ const Home = () => {
     setIsSearch(true);
     try {
       const getSearchMovie = async () => {
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`
-        );
+        const res = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
         const datas = await res.json();
         if (datas.Response === "True") {
           setResponse("True");
@@ -103,13 +97,7 @@ const Home = () => {
           <a href="#">Now Showing</a>
         </div>
         <a className="hamburger-menu" href="#" onClick={showNav}>
-          <svg
-            width="46"
-            height="46"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
         </a>
@@ -118,11 +106,7 @@ const Home = () => {
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
-          <input
-            id="search-value"
-            type="search"
-            placeholder="Search movies..."
-          />
+          <input id="search-value" type="search" placeholder="Search movies..." />
           <button type="button" onClick={searchMovie}></button>
         </form>
       </section>
@@ -134,27 +118,15 @@ const Home = () => {
           {posters.map((poster, index) => {
             return (
               <>
-                <div
-                  className="poster-card"
-                  data-aos="flip-left"
-                  data-aos-duration="1000"
-                  data-aos-delay={index + "00"}
-                  data-aos-once="true"
-                  onClick={showDetails}
-                >
+                <div className="poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} data-aos-once="true" onClick={showDetails}>
                   <div className="poster-img">
-                    <img
-                      src={poster.Poster}
-                      alt="Poster"
-                      data-imdbid={poster.imdbID}
-                    />
+                    <img src={poster.Poster} alt="Poster" data-imdbid={poster.imdbID} />
                   </div>
                   <h1 className="poster-title">{poster.Title}</h1>
                 </div>
               </>
             );
           })}
-          {}
         </section>
       </div>
 
@@ -170,20 +142,9 @@ const Home = () => {
             movies.map((movie, index) => {
               return (
                 <>
-                  <div
-                    className="results-poster-card"
-                    data-aos="flip-left"
-                    data-aos-duration="1000"
-                    data-aos-delay={index + "00"}
-                    onClick={showDetails}
-                    data-aos-once="false"
-                  >
+                  <div className="results-poster-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay={index + "00"} onClick={showDetails} data-aos-once="false">
                     <div className="results-poster-img">
-                      <img
-                        src={movie.Poster}
-                        alt="Poster"
-                        data-imdbid={movie.imdbID}
-                      />
+                      <img src={movie.Poster} alt="Poster" data-imdbid={movie.imdbID} />
                     </div>
                     <h1 className="results-poster-title">{movie.Title}</h1>
                   </div>
@@ -235,6 +196,35 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div id="footer" className="container">
+        <footer className="footer">
+          <div className="footer-main">
+            <h1 className="footer-logo">
+              D` <span>Movie</span>
+            </h1>
+            <div className="footer-socmed">
+              <h2 className="footer-socmed-title"> Lets Connected</h2>
+              <ul className="footer-socmed-list">
+                <li>
+                  <a href="">Instagram</a>
+                </li>
+                <li>
+                  <a href="">Linkedin</a>
+                </li>
+                <li>
+                  <a href="">Github</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-copyright">
+            <div></div>
+            <p>©2023 by Mas Amirul Dimas Daen Pratama</p>
+          </div>
+        </footer>
       </div>
     </>
   );
