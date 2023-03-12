@@ -36,9 +36,27 @@ li {
 }
 
 .navbar-nav-home a {
+  position: relative;
   margin-right: 4rem;
   color: #ffffef;
   font-size: 1.5rem;
+}
+.navbar-nav-home a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.navbar-nav-home a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
 }
 
 .hamburger-menu {
@@ -192,17 +210,17 @@ button[type="submit"]:hover {
   font-size: 4rem;
 }
 .footer-socmed-title {
+  font-style: italic;
   text-align: center;
 }
 .footer-socmed-list {
-  text-align: ce;
   display: flex;
+  width: 100%;
 }
 .footer-socmed-list li {
   display: inline-block;
   position: relative;
   margin: 0 1rem;
-  color: white;
 }
 .footer-socmed-list li a {
   display: inline-block;
