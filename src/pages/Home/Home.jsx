@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Card from "../../component/Card";
 import "./Home.css";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [response, setResponse] = useState("True");
+  const [tes, setTes] = useState([]);
 
   useEffect(() => {
     try {
@@ -20,6 +22,13 @@ const Home = () => {
         setPosters(results);
       };
       getDatas();
+      fetch(
+        "https://api.themoviedb.org/3/search/movie?api_key=e1862621825808eba9dce7c6da2ac0a2&query=batman"
+      ).then((res) =>
+        res.json().then((data) => {
+          setTes(data.results);
+        })
+      );
     } catch (e) {
       console.log(e);
     }
@@ -128,34 +137,21 @@ const Home = () => {
       </section>
 
       {/* Section */}
-      <div id="popular" className="container">
-        <h1 className="popular-title">Popular</h1>
-        <section className="popular">
-          {posters.map((poster, index) => {
-            return (
-              <>
-                <div
-                  className="poster-card"
-                  data-aos="flip-left"
-                  data-aos-duration="1000"
-                  data-aos-delay={index + "00"}
-                  data-aos-once="true"
-                  onClick={showDetails}
-                >
-                  <div className="poster-img">
-                    <img
-                      src={poster.Poster}
-                      alt="Poster"
-                      data-imdbid={poster.imdbID}
-                    />
-                  </div>
-                  <h1 className="poster-title">{poster.Title}</h1>
-                </div>
-              </>
-            );
-          })}
-        </section>
-      </div>
+
+      <h1 id="popular" className="popular-title">
+        Popular
+      </h1>
+      <section className="popular">
+        {posters.map((poster, index) => {
+          return (
+            <Card
+              delay={index + "00"}
+              posterImg={poster.Poster}
+              title={poster.Title}
+            />
+          );
+        })}
+      </section>
 
       {/* Search Section */}
       <div id="search-results" className="container">
@@ -169,23 +165,11 @@ const Home = () => {
             movies.map((movie, index) => {
               return (
                 <>
-                  <div
-                    className="results-poster-card"
-                    data-aos="zoom-in-up"
-                    data-aos-duration="1000"
-                    data-aos-delay={index + "00"}
-                    onClick={showDetails}
-                    data-aos-once="false"
-                  >
-                    <div className="results-poster-img">
-                      <img
-                        src={movie.Poster}
-                        alt="Poster"
-                        data-imdbid={movie.imdbID}
-                      />
-                    </div>
-                    <h1 className="results-poster-title">{movie.Title}</h1>
-                  </div>
+                  <Card
+                    delay={index + "00"}
+                    posterImg={movie.Poster}
+                    title={movie.Title}
+                  />
                 </>
               );
             })
@@ -195,6 +179,9 @@ const Home = () => {
         </section>
       </div>
 
+      <div>
+        <Card />
+      </div>
       {/* Modal */}
       <div className="container">
         <div id="myModal" class="modal">
