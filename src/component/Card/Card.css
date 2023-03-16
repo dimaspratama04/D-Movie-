@@ -1,0 +1,21 @@
+.poster-card {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10rem;
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+}
+
+.poster-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.poster-title {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
