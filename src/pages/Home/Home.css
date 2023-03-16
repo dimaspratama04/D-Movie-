@@ -159,31 +159,18 @@ button[type="submit"]:hover {
   scrollbar-width: thin;
   gap: 10px;
   grid-template-columns: repeat(10, calc(30%));
-}
+} */
 
 .card-slide-content {
-  position: relative;
-  margin: 0 100px;
-  overflow: hidden;
-} */
-.card-slide-content {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  max-width: 100%;
 }
 .nowPlaying-results {
   display: flex;
-  gap: 10px;
-}
-.nowPlaying-results > * {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-.prevBtn,
-.nextBtn {
-  width: 50px;
-  height: 100%;
-  flex-shrink: 0;
+  margin: 0 50px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 30px;
 }
 
 /* The Modal (background) */

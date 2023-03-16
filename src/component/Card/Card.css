@@ -5,16 +5,17 @@
 }
 
 .poster-img {
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 500px;
 }
 
 .poster-img img {
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 500px;
 }
 
 .poster-title {
+  width: 300px;
   font-size: 20px;
   text-align: center;
   color: white;
