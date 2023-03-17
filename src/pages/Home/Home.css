@@ -138,23 +138,26 @@ button[type="submit"]:hover {
 
 /* Now Playing */
 .select-playing-city {
-  width: 20rem;
+  width: 25rem;
   display: flex;
   justify-content: space-evenly;
 }
 .select-playing-city h1 {
   color: #ffffef;
+  font-size: 2rem;
 }
 .select-playing-city select {
   margin: auto 0;
-  height: 2rem;
-  font-size: 1rem;
-  padding: 5px;
+  height: 2.5rem;
+  padding: 0 5px;
+  font-size: 2rem;
+  font-weight: bold;
   border-radius: 20px;
 }
 
 /* Swiper card */
 .swiper {
+  margin-top: 2rem;
   width: 100%;
   height: 100%;
 }

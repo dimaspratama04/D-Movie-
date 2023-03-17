@@ -23,7 +23,8 @@
   width: 50%;
 }
 .footer-socmed-list li {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
   margin: 0 1rem;
 }

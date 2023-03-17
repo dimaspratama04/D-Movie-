@@ -21,9 +21,7 @@ const LandingPage = () => {
       {/* Section Hero */}
       <section className="hero">
         <main className="content">
-          <h1>
-            Most popular<span>Website</span>
-          </h1>
+          <h1>Most popular Website</h1>
           <h2>for search movies</h2>
           <a className="cta" href="/home">
             Get started
@@ -33,7 +31,7 @@ const LandingPage = () => {
 
       {/* Section Extras*/}
       <section className="extras">
-        <div className="extras-1" data-aos="fade-right" data-aos-duration="500" data-aos-once="true">
+        <div className="extras-1" data-aos="fade-right" data-aos-duration="500" data-aos-once="true" data-aos-offset="250">
           <div className="extras-1-title">
             <h1>Enjoy in everywhere</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cum minima perspiciatis? Incidunt, officiis illo!</p>
@@ -42,7 +40,7 @@ const LandingPage = () => {
             <img src={Extras1} alt="Extras 1" />
           </div>
         </div>
-        <div className="extras-2" data-aos="fade-right" data-aos-duration="500" data-aos-once="true">
+        <div className="extras-2" data-aos="fade-right" data-aos-duration="500" data-aos-once="true" data-aos-offset="290">
           <div className="extras-2-title">
             <h1>Easy to acces</h1>
             <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit lorem am sit, amet consectetur adipisicing elit. Sed, a? !</p>
@@ -51,7 +49,7 @@ const LandingPage = () => {
             <img src={Extras2} alt="Extras 2" />
           </div>
         </div>
-        <div className="extras-3" data-aos="fade-right" data-aos-duration="500" data-aos-once="true">
+        <div className="extras-3" data-aos="fade-right" data-aos-duration="500" data-aos-once="true" data-aos-offset="310">
           <div className="extras-3-title">
             <h1>Unlimited film</h1>
             <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, facere.</p>

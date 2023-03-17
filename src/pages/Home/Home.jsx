@@ -27,8 +27,6 @@ const Home = () => {
   const [response, setResponse] = useState("True");
   // Now playing movies
   const [nowPlayings, setNowPlayings] = useState([]);
-  // Set value from now playing
-  const [valueNowPlaying, setValueNowPlaying] = useState([]);
 
   // Get popular
   useEffect(() => {
@@ -107,13 +105,25 @@ const Home = () => {
   };
 
   // Now Playing Movie
-  const nowPlayingMovie = (valueCity) => {
-    const getNowPlayingMovie = async (value) => {
+  const getNowPlayingMovie = async (value) => {
+    try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
       const datas = await response.json();
       setNowPlayings(datas.Search);
-    };
-    switch (valueCity) {
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // Value on dom for now playing
+  useEffect(() => {
+    getNowPlayingMovie("conjuring");
+  }, []);
+
+  // Now playing
+  const onChangeSelect = () => {
+    let e = document.getElementById("by-city").value;
+    switch (e) {
       case "bdg":
         getNowPlayingMovie("conjuring");
         break;
@@ -125,16 +135,6 @@ const Home = () => {
         break;
       default:
         return;
-    }
-  };
-
-  // Now playing
-  const onChangeSelect = () => {
-    let e = document.getElementById("by-city").value;
-    if (e === null) {
-      return;
-    } else {
-      nowPlayingMovie(e);
     }
   };
 
@@ -150,7 +150,7 @@ const Home = () => {
           <a href="#popular">Popular</a>
           <a href="#now-playing">Now Playing</a>
         </div>
-        <a className="hamburger-menu" href="#" onClick={showNav}>
+        <a className="hamburger-menu" onClick={showNav}>
           <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
@@ -171,7 +171,7 @@ const Home = () => {
       </h1>
       <section className="popular">
         {posters.map((poster, index) => {
-          return <Card delay={index + "00"} posterImg={poster.Poster} title={poster.Title} imdbid={poster.imdbID} onClick={showDetails} />;
+          return <Card delay={index + "00"} aos={"flip-left"} posterImg={poster.Poster} title={poster.Title} imdbid={poster.imdbID} onClick={showDetails} once={true} />;
         })}
       </section>
 
@@ -190,18 +190,16 @@ const Home = () => {
         </div>
 
         {/* Card Now Playing */}
-        <div className="card-slide-conten">
-          <div className="nowPlaying-result">
+        <div className="card-slide-content">
+          <div className="nowPlaying-results">
             <Swiper
               loop={true}
-              navigation={{
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              }}
+              navigation={false}
               modules={[Navigation, Autoplay]}
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: false,
               }}
               breakpoints={{
                 0: {
@@ -218,7 +216,7 @@ const Home = () => {
               {nowPlayings.map((nowPlaying) => {
                 return (
                   <SwiperSlide>
-                    <Card posterImg={nowPlaying.Poster} title={nowPlaying.Title} imdbid={nowPlaying.imdbID} onClick={showDetails} />;
+                    <Card posterImg={nowPlaying.Poster} aos={"zoom-in-up"} title={nowPlaying.Title} imdbid={nowPlaying.imdbID} onClick={showDetails} once={true} />;
                   </SwiperSlide>
                 );
               })}
@@ -236,8 +234,8 @@ const Home = () => {
         )}
         <section className="results">
           {response === "True" ? (
-            movies.map((movie, index) => {
-              return <Card delay={index + "00"} posterImg={movie.Poster} title={movie.Title} imdbid={movie.imdbID} onClick={showDetails} />;
+            movies.map((movie) => {
+              return <Card posterImg={movie.Poster} aos={"zoom-in-up"} title={movie.Title} imdbid={movie.imdbID} onClick={showDetails} once={false} />;
             })
           ) : (
             <h1 className="false-res">Movie not found !</h1>
