@@ -118,7 +118,7 @@ button[type="submit"]:hover {
   opacity: 1;
 }
 
-/* Popular Section */
+/* Section */
 .popular-title,
 .search-title,
 .nowPlaying-title {
@@ -152,25 +152,16 @@ button[type="submit"]:hover {
   padding: 5px;
   border-radius: 20px;
 }
-/* .nowPlaying-results {
-  display: grid;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  gap: 10px;
-  grid-template-columns: repeat(10, calc(30%));
-} */
 
-.card-slide-content {
-  display: flex;
-  max-width: 100%;
+/* Swiper card */
+.swiper {
+  width: 100%;
+  height: 100%;
 }
-.nowPlaying-results {
+.swiper-slide {
   display: flex;
-  margin: 0 50px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 /* The Modal (background) */
@@ -303,6 +294,11 @@ button[type="submit"]:hover {
   .hamburger-menu {
     display: none;
   }
+
+  /* Swiper Card */
+  .swiper-slide {
+    margin: 0 50px;
+  }
 }
 
 /* Large */
@@ -320,5 +316,10 @@ button[type="submit"]:hover {
   /* Modal */
   .modal-body {
     margin: 10% auto;
+  }
+
+  /* Swiper Card */
+  .swiper-slide {
+    margin: 0;
   }
 }

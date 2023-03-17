@@ -1,6 +1,15 @@
+// Module
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper";
+
+// Component
 import Card from "../../component/Card/Card";
 import Footer from "../../component/Footer/Footer";
+
+// CSS
+import "swiper/css";
+import "swiper/css/navigation";
 import "./Home.css";
 
 const Home = () => {
@@ -25,9 +34,7 @@ const Home = () => {
   useEffect(() => {
     try {
       const getDatas = async () => {
-        const response = await fetch(
-          "http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers"
-        );
+        const response = await fetch("http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers");
         const datas = await response.json();
         let results = datas.Search.slice(0, 4);
         setPosters(results);
@@ -47,9 +54,7 @@ const Home = () => {
   // Get movie details
   const getMovieDetails = async (imdbid) => {
     try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`
-      );
+      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`);
       const datas = await response.json();
       setMovieDetail(datas);
     } catch (e) {
@@ -84,9 +89,7 @@ const Home = () => {
     setIsSearch(true);
     try {
       const getSearchMovie = async () => {
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`
-        );
+        const res = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
         const datas = await res.json();
         if (datas.Response === "True") {
           setResponse("True");
@@ -106,9 +109,7 @@ const Home = () => {
   // Now Playing Movie
   const nowPlayingMovie = (valueCity) => {
     const getNowPlayingMovie = async (value) => {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`
-      );
+      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
       const datas = await response.json();
       setNowPlayings(datas.Search);
     };
@@ -150,13 +151,7 @@ const Home = () => {
           <a href="#now-playing">Now Playing</a>
         </div>
         <a className="hamburger-menu" href="#" onClick={showNav}>
-          <svg
-            width="46"
-            height="46"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
         </a>
@@ -165,28 +160,18 @@ const Home = () => {
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
-          <input
-            id="search-value"
-            type="search"
-            placeholder="Search movies..."
-          />
+          <input id="search-value" type="search" placeholder="Search movies..." />
           <button type="button" onClick={searchMovie}></button>
         </form>
       </section>
 
       {/* Popular Section */}
-      <h1 className="popular-title">Popular</h1>
-      <section id="popular" className="popular">
+      <h1 id="popular" className="popular-title">
+        Popular
+      </h1>
+      <section className="popular">
         {posters.map((poster, index) => {
-          return (
-            <Card
-              delay={index + "00"}
-              posterImg={poster.Poster}
-              title={poster.Title}
-              imdbid={poster.imdbID}
-              onClick={showDetails}
-            />
-          );
+          return <Card delay={index + "00"} posterImg={poster.Poster} title={poster.Title} imdbid={poster.imdbID} onClick={showDetails} />;
         })}
       </section>
 
@@ -205,21 +190,40 @@ const Home = () => {
         </div>
 
         {/* Card Now Playing */}
-        <div className="card-slide-content">
-          <div className="prevBtn"></div>
-          <div className="nowPlaying-results">
-            {nowPlayings.map((nowPlaying) => {
-              return (
-                <Card
-                  posterImg={nowPlaying.Poster}
-                  title={nowPlaying.Title}
-                  imdbid={nowPlaying.imdbID}
-                  onClick={showDetails}
-                />
-              );
-            })}
+        <div className="card-slide-conten">
+          <div className="nowPlaying-result">
+            <Swiper
+              loop={true}
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              }}
+              modules={[Navigation, Autoplay]}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                },
+                600: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+              }}
+              className="mySwiper">
+              {nowPlayings.map((nowPlaying) => {
+                return (
+                  <SwiperSlide>
+                    <Card posterImg={nowPlaying.Poster} title={nowPlaying.Title} imdbid={nowPlaying.imdbID} onClick={showDetails} />;
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
-          <div className="nextBtn"></div>
         </div>
       </section>
 
@@ -233,15 +237,7 @@ const Home = () => {
         <section className="results">
           {response === "True" ? (
             movies.map((movie, index) => {
-              return (
-                <Card
-                  delay={index + "00"}
-                  posterImg={movie.Poster}
-                  title={movie.Title}
-                  imdbid={movie.imdbID}
-                  onClick={showDetails}
-                />
-              );
+              return <Card delay={index + "00"} posterImg={movie.Poster} title={movie.Title} imdbid={movie.imdbID} onClick={showDetails} />;
             })
           ) : (
             <h1 className="false-res">Movie not found !</h1>
