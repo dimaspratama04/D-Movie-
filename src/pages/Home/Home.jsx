@@ -32,7 +32,9 @@ const Home = () => {
   useEffect(() => {
     try {
       const getDatas = async () => {
-        const response = await fetch("http://www.omdbapi.com/?apikey=e9a8997e&s=Avengers");
+        const response = await fetch(
+          "https://www.omdbapi.com/?apikey=e9a8997e&s=Avengers"
+        );
         const datas = await response.json();
         let results = datas.Search.slice(0, 4);
         setPosters(results);
@@ -52,7 +54,9 @@ const Home = () => {
   // Get movie details
   const getMovieDetails = async (imdbid) => {
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`);
+      const response = await fetch(
+        `https://www.omdbapi.com/?apikey=e9a8997e&i=${imdbid}`
+      );
       const datas = await response.json();
       setMovieDetail(datas);
     } catch (e) {
@@ -87,7 +91,9 @@ const Home = () => {
     setIsSearch(true);
     try {
       const getSearchMovie = async () => {
-        const res = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=e9a8997e&s=${value}`
+        );
         const datas = await res.json();
         if (datas.Response === "True") {
           setResponse("True");
@@ -107,7 +113,9 @@ const Home = () => {
   // Now Playing Movie
   const getNowPlayingMovie = async (value) => {
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=e9a8997e&s=${value}`);
+      const response = await fetch(
+        `https://www.omdbapi.com/?apikey=e9a8997e&s=${value}`
+      );
       const datas = await response.json();
       setNowPlayings(datas.Search);
     } catch (e) {
@@ -151,7 +159,13 @@ const Home = () => {
           <a href="#now-playing">Now Playing</a>
         </div>
         <a className="hamburger-menu" onClick={showNav}>
-          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="46"
+            height="46"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
           </svg>
         </a>
@@ -160,7 +174,11 @@ const Home = () => {
       {/* Jumbotron */}
       <section className="jumbotron">
         <form>
-          <input id="search-value" type="search" placeholder="Search movies..." />
+          <input
+            id="search-value"
+            type="search"
+            placeholder="Search movies..."
+          />
           <button type="button" onClick={searchMovie}></button>
         </form>
       </section>
@@ -171,7 +189,17 @@ const Home = () => {
       </h1>
       <section className="popular">
         {posters.map((poster, index) => {
-          return <Card delay={index + "00"} aos={"flip-left"} posterImg={poster.Poster} title={poster.Title} imdbid={poster.imdbID} onClick={showDetails} once={true} />;
+          return (
+            <Card
+              delay={index + "00"}
+              aos={"flip-left"}
+              posterImg={poster.Poster}
+              title={poster.Title}
+              imdbid={poster.imdbID}
+              onClick={showDetails}
+              once={true}
+            />
+          );
         })}
       </section>
 
@@ -212,11 +240,20 @@ const Home = () => {
                   slidesPerView: 3,
                 },
               }}
-              className="mySwiper">
+              className="mySwiper"
+            >
               {nowPlayings.map((nowPlaying) => {
                 return (
                   <SwiperSlide>
-                    <Card posterImg={nowPlaying.Poster} aos={"zoom-in-up"} title={nowPlaying.Title} imdbid={nowPlaying.imdbID} onClick={showDetails} once={true} />;
+                    <Card
+                      posterImg={nowPlaying.Poster}
+                      aos={"zoom-in-up"}
+                      title={nowPlaying.Title}
+                      imdbid={nowPlaying.imdbID}
+                      onClick={showDetails}
+                      once={true}
+                    />
+                    ;
                   </SwiperSlide>
                 );
               })}
@@ -235,7 +272,16 @@ const Home = () => {
         <section className="results">
           {response === "True" ? (
             movies.map((movie) => {
-              return <Card posterImg={movie.Poster} aos={"zoom-in-up"} title={movie.Title} imdbid={movie.imdbID} onClick={showDetails} once={false} />;
+              return (
+                <Card
+                  posterImg={movie.Poster}
+                  aos={"zoom-in-up"}
+                  title={movie.Title}
+                  imdbid={movie.imdbID}
+                  onClick={showDetails}
+                  once={false}
+                />
+              );
             })
           ) : (
             <h1 className="false-res">Movie not found !</h1>
