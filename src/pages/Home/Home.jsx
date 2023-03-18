@@ -86,6 +86,9 @@ const Home = () => {
 
   // Search Movie
   const searchMovie = () => {
+    document.getElementById("search-input").addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
     const value = document.getElementById("search-value").value;
     setSearchValue(value);
     setIsSearch(true);
@@ -173,11 +176,16 @@ const Home = () => {
 
       {/* Jumbotron */}
       <section className="jumbotron">
-        <form>
+        <form id="search-input">
           <input
             id="search-value"
             type="search"
             placeholder="Search movies..."
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                searchMovie();
+              }
+            }}
           />
           <button type="button" onClick={searchMovie}></button>
         </form>
