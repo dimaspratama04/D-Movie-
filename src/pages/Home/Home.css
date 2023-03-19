@@ -130,10 +130,10 @@ button[type="submit"]:hover {
 
 .popular,
 .results {
-  text-align: center;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  margin-bottom: 10rem;
 }
 
 /* Now Playing */
@@ -163,8 +163,10 @@ button[type="submit"]:hover {
 }
 .swiper-slide {
   display: flex;
+  width: auto;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }
 
 /* The Modal (background) */

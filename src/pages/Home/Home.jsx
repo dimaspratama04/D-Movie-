@@ -1,5 +1,5 @@
 // Module
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 
@@ -13,6 +13,8 @@ import "swiper/css/navigation";
 import "./Home.css";
 
 const Home = () => {
+  // Value search movie
+  const inputRef = useRef(null);
   // Popular
   const [posters, setPosters] = useState([]);
   // Movie Detail
@@ -86,10 +88,7 @@ const Home = () => {
 
   // Search Movie
   const searchMovie = () => {
-    document.getElementById("search-input").addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
-    const value = document.getElementById("search-value").value;
+    let value = inputRef.current.value;
     setSearchValue(value);
     setIsSearch(true);
     try {
@@ -101,9 +100,8 @@ const Home = () => {
         if (datas.Response === "True") {
           setResponse("True");
           setMovies(datas.Search);
-        } else if (datas.Response === "False") {
-          setResponse("False");
         } else {
+          setResponse("False");
         }
         window.location.href = "#search-results";
       };
@@ -178,11 +176,13 @@ const Home = () => {
       <section className="jumbotron">
         <form id="search-input">
           <input
+            ref={inputRef}
             id="search-value"
             type="search"
             placeholder="Search movies..."
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
                 searchMovie();
               }
             }}
@@ -212,8 +212,10 @@ const Home = () => {
       </section>
 
       {/* Now Playing */}
-      <h1 className="nowPlaying-title">Now Playing</h1>
-      <section id="now-playing">
+      <h1 id="now-playing" className="nowPlaying-title">
+        Now Playing
+      </h1>
+      <section>
         <div className="select-playing-city">
           <h1>Playing at</h1>
           <select name="by-city" id="by-city" onChange={onChangeSelect}>
@@ -241,11 +243,14 @@ const Home = () => {
                 0: {
                   slidesPerView: 1,
                 },
-                600: {
+                360: {
                   slidesPerView: 2,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: "auto",
+                },
+                1024: {
+                  slidesPerView: 4,
                 },
               }}
               className="mySwiper"
